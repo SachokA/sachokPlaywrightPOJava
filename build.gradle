@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id "org.gradle.test-retry" version "1.5.3"
+}
+
+group = 'gui'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'log4j', name: 'log4j', version: '1.2.17'
+    implementation group: 'com.microsoft.playwright', name: 'playwright', version: '1.40.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+}
+
+test {
+    retry {
+        maxRetries = 0
+    }
+    testLogging {
+        events "passed", "skipped", "failed","standardOut","standardError"
+        exceptionFormat "full"
+    }
+    useJUnitPlatform(){
+    }
+}
